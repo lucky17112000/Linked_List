@@ -1,0 +1,205 @@
+
+/*-----------------------------------------------
+'    Linked List Tamplate                        '
+'   Operation:insert , update                    '
+'                                                '
+'                                                '
+'------------------------------------------------*/
+
+#include <bits/stdc++.h>
+#define endl '\n'
+using namespace std;
+class Node
+{
+public:
+    int val;
+    Node *next;
+    Node(int val)
+    {
+        this->val = val;
+        this->next = NULL;
+    }
+};
+
+// insert at tail start
+void insert_at_tail(Node *&head, Node *&tail, int val)
+{
+    Node *newNode = new Node(val);
+
+    if (head == NULL)
+    {
+        head = newNode;
+        tail = newNode;
+        return;
+    }
+    tail->next = newNode;
+    tail = newNode;
+}
+// insert at tail end
+
+// print start
+void print(Node *head)
+{
+    cout << "Linked List : ";
+    for (Node *i = head; i != NULL; i = i->next)
+        cout << i->val << " ";
+    cout << endl;
+}
+// print end
+
+// linked list size start
+int size(Node *head)
+{
+    int count = 0;
+    for (Node *i = head; i != NULL; i = i->next)
+    {
+        count++;
+    }
+    return count;
+}
+// linked list size end
+
+// insert at any position start
+void insert_at_any_position(Node *head, int pos, int val)
+{
+    Node *newNode = new Node(val);
+    Node *tmp = head;
+    for (int i = 1; i <= pos - 1; i++)
+    {
+        tmp = tmp->next;
+    }
+    newNode->next = tmp->next;
+    tmp->next = newNode;
+    cout << endl
+         << endl
+         << "Insert at " << pos << " Done" << endl
+         << endl;
+}
+
+// insert at any position end
+
+// insert at head start
+void insert_at_head(Node *&head, int val)
+{
+    Node *newNode = new Node(val);
+    newNode->next = head;
+    head = newNode;
+    cout << endl
+         << endl
+         << "Insert At Head Done " << endl
+         << endl;
+}
+// insert at head end
+
+// delete any position start
+void delete_at_any_position(Node *head, int pos)
+{
+    Node *tmp = head;
+    for (int i = 1; i <= pos - 1; i++)
+    {
+        tmp = tmp->next;
+    }
+    Node *deleteNode = tmp->next;
+    tmp->next = tmp->next->next;
+    delete deleteNode;
+    cout << endl
+         << endl
+         << pos << "th Node Delete Done" << endl
+         << endl;
+}
+
+// delete any position end
+
+// delete head start
+void delet_head(Node *&head)
+{
+    Node *deleNode = head;
+    head = head->next;
+    delete deleNode;
+    cout << endl
+         << endl
+         << "Head Delete Done " << endl
+         << endl;
+}
+// delete head end
+
+int main()
+{
+    Node *head = NULL;
+    Node *tail = NULL;
+    while (true)
+    {
+        cout << "If You print Linked List then press 0 : " << endl;
+        cout << "If you insert value in tail then press 1 : " << endl;
+        cout << "If You insert Node Any Position then press 2 : " << endl;
+        cout << "If You Insert Node at head then press 3 : " << endl;
+        cout << "If Delete any Node then press 4 : " << endl;
+        cout << "If delete head Node then press 5 : " << endl;
+        cout << "press -1 for terminate programme : " << endl;
+        int pos;
+        cin >> pos;
+        if (pos == 1)
+        {
+            while (true)
+            {
+                int val;
+                cin >> val;
+                if (val == -1)
+                    break;
+                insert_at_tail(head, tail, val);
+                // cout << endl << endl << "Insert At Tail Done " << endl << endl;
+            }
+        }
+        else if (pos == 0)
+            print(head);
+        else if (pos == 2)
+        {
+            int pos, val;
+            cout << "Enter position : ";
+            cin >> pos;
+            cout << "Enter value : ";
+            cin >> val;
+            if (pos > size(head))
+            {
+                cout << "Invalid Index" << endl;
+            }
+            else
+            {
+                (pos == 0) ? insert_at_head(head, val) : insert_at_any_position(head, pos, val);
+            }
+        }
+        else if (pos == 3)
+        {
+            cout << "Enter Value : ";
+            int val;
+            cin >> val;
+            insert_at_head(head, val);
+        }
+        else if (pos == 4)
+        {
+            int pos;
+            cout << "Enter Position : ";
+            cin >> pos;
+            if (pos >= size(head))
+                cout << "Invalid Index" << endl;
+            else
+            {
+                (pos == 0) ? delet_head(head) : delete_at_any_position(head, pos);
+            }
+        }
+        else if (pos == 5)
+        {
+            delet_head(head);
+        }
+        else if (pos == -1)
+        {
+            cout << "Programme Terminate !!!!" << endl;
+            break;
+        }
+    }
+
+    // cout << size(head) << endl;
+    // print(head);
+
+    return 0;
+}
